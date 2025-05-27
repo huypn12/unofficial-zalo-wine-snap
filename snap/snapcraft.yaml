@@ -1,0 +1,55 @@
+name: unofficial-zalo-wine
+title: Unofficial Zalo Wine
+summary: Unofficial Zalo distribution on top of Wine
+description: Unofficial Zalo distribution on top of Wine
+version: 25.5.3
+type: app
+grade: devel
+  
+base: core24
+confinement: strict
+
+apps:
+  zalo:
+    extensions: [gnome]
+    command: bin/sommelier run-exe
+    environment:
+      RUN_EXE: "C:/path/to/installer/executable.exe"
+      INSTALL_URL: "https://res-zaloapp-aka.zdn.vn/win/ZaloSetup-25.5.3.exe"
+    plugs: # change these as required
+    - home
+    - network
+    - network-bind
+  wine:
+    extensions: [gnome]
+    command: bin/sommelier
+    plugs:
+      - home
+      - network
+  winetricks:
+    extensions: [gnome]
+    command: bin/sommelier winetricks
+    plugs:
+      - home
+      - network
+
+parts:
+  installer:
+    plugin: dump
+    source: installer
+  sommelier-core:
+    plugin: make
+    source: https://github.com/snapcrafters/sommelier-core.git
+    source-branch: "1.0"
+
+plugs:
+  wine-runtime:
+    interface: content
+    target: $SNAP/wine-runtime
+    default-provider: wine-platform-runtime
+  wine-6-stable: 
+    interface: content
+    target: $SNAP/wine-platform
+    default-provider: wine-platform-6-stable # must be a valid snap
+
+

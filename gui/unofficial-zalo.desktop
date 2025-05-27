@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=UnofficialZalo
+Categories=Graphics
+Exec=zalo %F
+Icon=${SNAP}/meta/gui/unofficial-zalo.png
+Terminal=false
+StartupNotify=true
+StartupWMClass=Zalo.exe
